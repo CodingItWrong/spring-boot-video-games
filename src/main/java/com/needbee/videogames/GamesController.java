@@ -1,6 +1,8 @@
 package com.needbee.videogames;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,11 +19,11 @@ public class GamesController {
 
     // TODO make it a POST instead
     @GetMapping(path="/create")
-    public @ResponseBody Game create(@RequestParam String name, @RequestParam Integer releaseYear) {
+    public ResponseEntity<Game> create(@RequestParam String name, @RequestParam Integer releaseYear) {
         Game g = new Game();
         g.setName(name);
         g.setReleaseYear(releaseYear);
         gameRepository.save(g);
-        return g;
+        return new ResponseEntity<>(g, HttpStatus.CREATED);
     }
 }
