@@ -16,8 +16,9 @@ public class GamesController {
     }
 
     @PostMapping("/games")
-    ResponseEntity<Game> create(@RequestBody Game newGame) {
-        return new ResponseEntity<>(repository.save(newGame), HttpStatus.CREATED);
+    @ResponseStatus(HttpStatus.CREATED)
+    Game create(@RequestBody Game newGame) {
+        return repository.save(newGame);
     }
 
     @GetMapping("/games/{id}")
