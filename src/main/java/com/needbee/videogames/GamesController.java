@@ -5,28 +5,29 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/games")
 public class GamesController {
     @Autowired
     private GameRepository repository;
 
-    @GetMapping("/games")
+    @GetMapping("")
     Iterable<Game> index() {
         return repository.findAll();
     }
 
-    @PostMapping("/games")
+    @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
     Game create(@RequestBody Game newGame) {
         return repository.save(newGame);
     }
 
-    @GetMapping("/games/{id}")
+    @GetMapping("/{id}")
     Game show(@PathVariable Integer id) {
         return repository.findById(id)
                 .orElseThrow(() -> new GameNotFoundException(id));
     }
 
-    @PatchMapping("/games/{id}")
+    @PatchMapping("/{id}")
     Game update(@RequestBody Game newGame, @PathVariable Integer id) {
         return repository.findById(id)
                 .map(game -> {
@@ -40,7 +41,7 @@ public class GamesController {
                 });
     }
 
-    @DeleteMapping("/games/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void destroy(@PathVariable Integer id) {
         repository.deleteById(id);
