@@ -35,10 +35,7 @@ public class GamesController {
                     game.setReleaseYear(newGame.getReleaseYear());
                     return repository.save(game);
                 })
-                .orElseGet(() -> {
-                    newGame.setId(id);
-                    return repository.save(newGame);
-                });
+                .orElseThrow(() -> new GameNotFoundException(id));
     }
 
     @DeleteMapping("/{id}")
