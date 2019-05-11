@@ -17,11 +17,11 @@ public class GamesController {
 
     // TODO make it a POST instead
     @GetMapping(path="/create")
-    public @ResponseBody String create(@RequestParam String name, @RequestParam Integer releaseYear) {
+    public @ResponseBody Game create(@RequestParam String name, @RequestParam Integer releaseYear) {
         Game g = new Game();
         g.setName(name);
         g.setReleaseYear(releaseYear);
         gameRepository.save(g);
-        return "Saved";
+        return g;
     }
 }
